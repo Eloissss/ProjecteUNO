@@ -16,14 +16,7 @@ public class CartaMes2 extends Carta{
 
     @Override
     public void accio() {
-        OrdreJugadors ordreJugadors = partida.getOrdreJugadors();
-        ordreJugadors.passarTorn();
 
-        Jugador seguentJugador = ordreJugadors.getJugadorActiu();
-        seguentJugador.robaCarta(partida.getMazo());
-        seguentJugador.robaCarta(partida.getMazo());
-
-        UI.chupaCartes(seguentJugador,2);
-        UI.jugadorPerdTorn(ordreJugadors);
+        partida.acumular(2);
     }
 }

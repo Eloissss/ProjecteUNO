@@ -54,6 +54,10 @@ public class Partida {
         Jugador jugadorActiu = ordreJugadors.getJugadorActiu();
         UI.tornJugador(jugadorActiu, pilo);
 
+        if (acumularCartes > 0){
+
+        }
+
         boolean potTirar = jugadorActiu.potTirarCarta(pilo);
         while (!potTirar) {
             if (mazo.esBuid()) {
@@ -74,6 +78,15 @@ public class Partida {
             return false;
         }
     }
+
+    private void donarCartesAcumulades(Jugador jugadorActiu) {
+        aplicarRoboAcumulat(jugadorActiu);
+    }
+
+    private void aplicarRoboAcumulat(Jugador jugadorActiu) {
+
+    }
+
 
     private void repartirCartes() {
         for (int i=0; i<quantitatJugadors*NOMBRE_INICIAL_CARTES; i++){

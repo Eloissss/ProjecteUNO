@@ -16,16 +16,6 @@ public class CartaMes4 extends Carta{
     public void accio() {
         this.color = UI.demanarColor();
 
-        OrdreJugadors ordreJugadors = partida.getOrdreJugadors();
-        ordreJugadors.passarTorn();
-
-        Jugador seguentJugador = ordreJugadors.getJugadorActiu();
-        seguentJugador.robaCarta(partida.getMazo());
-        seguentJugador.robaCarta(partida.getMazo());
-        seguentJugador.robaCarta(partida.getMazo());
-        seguentJugador.robaCarta(partida.getMazo());
-
-        UI.chupaCartes(seguentJugador,4);
-        UI.jugadorPerdTorn(ordreJugadors);
+      partida.acumular(4);
     }
 }
