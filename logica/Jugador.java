@@ -40,4 +40,8 @@ public class Jugador {
         }
         return jugadorPotTirar;
     }
+
+    /*public boolean teAcumular() {
+
+    }*/
 }
