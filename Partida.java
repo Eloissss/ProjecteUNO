@@ -81,4 +81,17 @@ public class Partida {
             ordreJugadors.passarTorn();
         }
     }
+
+    private int acumularCartes = 0;
+
+    public void acumular(int quantitat) {
+        this.acumularCartes = this.acumularCartes + quantitat;
+    }
+
+    public int getacumularCartrs() {
+        return this.acumularCartes;
+    }
+    public void restarCartesAcomulades () {
+        this.acumularCartes = 0;
+    }
 }
