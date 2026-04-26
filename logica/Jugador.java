@@ -41,7 +41,13 @@ public class Jugador {
         return jugadorPotTirar;
     }
 
-    /*public boolean teAcumular() {
-
-    }*/
+    public boolean teAcumular() {
+        for (int i = 0; i < cartes.size(); i++) {
+            Carta carta = cartes.get(i);
+            if (carta.getSimbol().equals("+2") || carta.getSimbol().equals("+4")) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

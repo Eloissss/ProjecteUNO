@@ -154,22 +154,30 @@ public class UI {
         System.out.println();
     }
 
-    public static Carta demanarCarta(Jugador jugador, Pilo pilo) {
+    public static Carta demanarCarta(Jugador jugador, Pilo pilo, boolean nomesAcumular) {
         mostrarMa(jugador);
         do {
             System.out.print("Escull una carta: ");
             int indexCartaEscollida = input.nextInt();
-
             if (indexCartaEscollida > 0 && indexCartaEscollida <= jugador.nombreDeCartes()) {
                 Carta cartaEscollida = jugador.getCartes().get(indexCartaEscollida-1);
 
-                if (cartaEscollida.sonCartesCompatibles(pilo.consultarCarta())){
-                    return cartaEscollida;
+                if (nomesAcumular) {
+                    if (cartaEscollida.getSimbol().equals("+2") || cartaEscollida.getSimbol().equals("+4")) {
+                        return cartaEscollida;
+                    } else {
+                        System.out.println(RED + "ERROR: Estàs responent a un atac! Has de tirar un +2 o un +4!" + RESET);
+                    }
                 } else {
-                    System.out.println("Aquesta carta no coincideix amb l'última del pilo!");
+                    // Torn normal
+                    if (cartaEscollida.sonCartesCompatibles(pilo.consultarCarta())){
+                        return cartaEscollida;
+                    } else {
+                        System.out.println(RED + "Aquesta carta no coincideix amb l'última del pilo!" + RESET);
+                    }
                 }
             } else {
-                System.out.println("ERROR: Has escollit una posició no vàlida");
+                System.out.println(RED + "ERROR: Has escollit una posició no vàlida" + RESET);
             }
         } while (true);
     }
@@ -233,11 +241,15 @@ public class UI {
         return colorEscollit;
     }
 
-    /*public static void missatgeHasDeRobar(int acumularCartes) {
-
+    public  static void  missatgeHasDeRobar (int acumularCartes){
+        System.out.println("No tens cap carta per respondre Has de robar " + acumularCartes + " cartes." + RESET);
     }
 
     public static boolean pregutar(int acumularCartes) {
+        System.out.print("Hi ha " + acumularCartes + " cartes acumulades Vols tirar un +2 o +4 per respondre? (s/n): ");
+        String resposta = input.next();
+        input.nextLine();
+        return resposta.equalsIgnoreCase("s");
+    }
 
-    }*/
 }

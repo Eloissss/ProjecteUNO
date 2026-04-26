@@ -54,21 +54,39 @@ public class Partida {
         Jugador jugadorActiu = ordreJugadors.getJugadorActiu();
         UI.tornJugador(jugadorActiu, pilo);
 
+        boolean nomesAcumular = false;
+
         if (acumularCartes > 0){
-
-        }
-
-        boolean potTirar = jugadorActiu.potTirarCarta(pilo);
-        while (!potTirar) {
-            if (mazo.esBuid()) {
-                mazo.reiniciar(pilo);
-            } else {
-                UI.senseCartes();
-                jugadorActiu.robaCarta(mazo);
-                potTirar = jugadorActiu.potTirarCarta(pilo);
+            if (jugadorActiu.teAcumular()) {
+                boolean volRespondre = UI.pregutar(acumularCartes);
+                if (!volRespondre) {
+                    aplicarRoboAcumulat(jugadorActiu);
+                    return false;
+                } else {
+                    nomesAcumular = true;
+                }
+            } else  {
+                UI.missatgeHasDeRobar(acumularCartes);
+                aplicarRoboAcumulat(jugadorActiu);
+                return false;
             }
+
         }
-        Carta cartaTirada = UI.demanarCarta(jugadorActiu, pilo);
+        boolean potTirar = jugadorActiu.potTirarCarta(pilo);
+        if (!nomesAcumular){
+            while (!potTirar) {
+                if (mazo.esBuid()) {
+                    mazo.reiniciar(pilo);
+                } else {
+                    UI.senseCartes();
+                    jugadorActiu.robaCarta(mazo);
+                    potTirar = jugadorActiu.potTirarCarta(pilo);
+                }
+            }
+
+        }
+
+        Carta cartaTirada = UI.demanarCarta(jugadorActiu, pilo, nomesAcumular);
         jugadorActiu.tirarCarta(cartaTirada,pilo);
 
         if (jugadorActiu.nombreDeCartes() <= 0) {
@@ -84,7 +102,14 @@ public class Partida {
     }
 
     private void aplicarRoboAcumulat(Jugador jugadorActiu) {
+        for (int i = 0; i < acumularCartes; i++){
+            jugadorActiu.robaCarta(mazo);
+        }
 
+        UI.chupaCartes(jugadorActiu, acumularCartes);
+
+        restarCartesAcomulades();
+        ordreJugadors.passarTorn();
     }
 
 
